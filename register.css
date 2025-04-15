@@ -1,0 +1,82 @@
+body {
+    background-image: url(images/moonlight.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+}
+
+hr {
+    border: 1px solid yellow;
+}
+
+.container {
+    background: rgb(10, 1, 54,0.8);
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 5%;
+    justify-content: center;
+    margin-bottom: 5%;
+}
+
+h1 { 
+    color:#E6C200;
+}
+
+h4{
+    margin-bottom: 22px;
+}
+
+p{
+    margin-top: 20px;
+    justify-content: center;
+}
+
+input {
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    background: #F5F5DC;
+    color: #191970;
+}
+
+button {
+    background-color: #FFD700;
+    color: #191970;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #E6C200;
+}
+
+a {
+    color: #FFD700;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    width: 80%;
+}
+
+@media (min-width: 576px) {
+    .container {
+        width: 66%;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        width: 45%;
+    }
+}

@@ -1,3 +1,36 @@
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    include 'config.php';
+
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    // check the name of the user in the database
+    $stmt = $conn->prepare("SELECT id, password FROM users WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows == 1) {
+        $stmt->bind_result($user_id, $hashed_password);
+        $stmt->fetch();
+
+        // if the password matches the hashed password in the database
+        if (password_verify($password, $hashed_password)) {
+            echo "<script>alert('Logins successful! Redirecting...'); window.location.href='index2.0.html';</script>";
+        } else {
+            echo "<script>alert('Wrong password.');</script>";
+        }
+    } else {
+        echo "<script>alert('Username not found.');</script>";
+    }
+
+    $stmt->close();
+    $conn->close();
+}
+?>
+
+
 <!Doctype html>
 <html lang="en">
   <head>
@@ -13,7 +46,7 @@
         <h1>🌝 Moonlight Reads</h1>
         <hr>
         <h4>Login Account</h4>
-        <form action="index2.0.html" method="GET">
+        <form action="login.php" method="POST">
             <div class="mb-3 row align-items-center">
                 <label for="username" class="col-2 col-form-label text-md-end">Username:</label>
                 <div class="col-12 col-md-10 col-lg-10">
@@ -32,7 +65,7 @@
             <button type="submit" class="button">Login</button>
         
             <p>Forgot password? <a href="Forgot password.html">Click here</a></p>
-            <p>Don't have an account? <a href="register.html">Register here</a></p>
+            <p>Don't have an account? <a href="register.php">Register here</a></p>
         </form>        
     </div>
     </body>

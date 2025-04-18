@@ -1,3 +1,37 @@
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    include 'config.php';
+
+    // get the data from the form
+    $name = $_POST['name'];
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // encrypt password
+
+    // check if email already exists
+    $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows > 0) {
+        echo "<script>alert('Email already registered.');</script>";
+    } else {
+        // insert new user to database
+        $stmt = $conn->prepare("INSERT INTO users (name, username, email, password) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $name, $username, $email, $password);
+        if ($stmt->execute()) {
+            echo "<script>alert('Registration successful! Redirecting to login...'); window.location.href='login.php';</script>";
+        } else {
+            echo "<script>alert('Registration failed. Try again.');</script>";
+        }
+    }
+
+    $stmt->close();
+    $conn->close();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +47,8 @@
         <h1>🌝 Moonlight Reads</h1>
         <hr>
         <h4>Create Account</h4>
-        <form action="login.html" method="GET">
+        <form action="register.php" method="POST">
+
             <div class="mb-3 row align-items-center">
                 <label for="name" class="col-2 col-form-label text-md-end">Name:</label>
                 <div class="col-12 col-md-10 col-lg-10">
@@ -39,7 +74,7 @@
                 </div>
             </div>
             <button type="submit" class="button">Register</button>
-            <p>Already have an account? <a href="login.html">Login here</a></p>
+            <p>Already have an account? <a href="login.php">Login here</a></p>
         </form>
     </div>
 </body>

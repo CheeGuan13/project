@@ -11,12 +11,16 @@ $username = $_SESSION['username']; // Retrieve username from session
 include 'config.php'; // Include the database configuration
 
 // get user information from database
-$stmt = $conn->prepare("SELECT email, created_at, avatar FROM users WHERE username = ?"); // Prepare SQL to get user data
-$stmt->bind_param("s", $username); // Bind username parameter
-$stmt->execute(); // Execute the query
-$stmt->bind_result($email, $created_at, $avatar); // Bind the result variables
-$stmt->fetch(); // Fetch the result
-$stmt->close(); // Close the statement
+$sql = "SELECT email, created_at, avatar FROM users WHERE username = '$username'"; // SQL to get user data
+$result = $conn->query($sql); // Execute the query
+
+if ($result && $row = $result->fetch_assoc()) { // Fetch the result
+    $email = $row['email'];
+    $created_at = $row['created_at'];
+    $avatar = $row['avatar'];
+} else {
+    $email = null;
+}
 
 // if user not found, redirect to login
 if (!$email) { // If email is empty, user doesn't exist
@@ -31,10 +35,8 @@ $avatar = (!empty($avatar) && file_exists($avatar)) ? $avatar : $default_avatar;
 
 // handle delete account request
 if (isset($_POST['delete_account'])) { // Check if delete account form is submitted
-    $stmt = $conn->prepare("DELETE FROM users WHERE username = ?"); // Prepare SQL to delete user
-    $stmt->bind_param("s", $username); // Bind username
-    $stmt->execute(); // Execute deletion
-    $stmt->close(); // Close statement
+    $sql = "DELETE FROM users WHERE username = '$username'"; // SQL to delete user
+    $conn->query($sql); // Execute deletion
 
     // Set success message before clearing login session
     $_SESSION['success'] = "Account deleted successfully!"; // Save success message in session
@@ -44,6 +46,7 @@ if (isset($_POST['delete_account'])) { // Check if delete account form is submit
     exit(); // Stop execution
 }
 ?>
+
 
 
 <!DOCTYPE html>

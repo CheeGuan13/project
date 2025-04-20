@@ -1,43 +1,40 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") { // Check if the form was submitted via POST
-    include 'config.php'; // Include the database configuration
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    include 'config.php';
 
-    $username = $_POST['username']; // Get username from form input
-    $password = $_POST['password']; // Get password from form input
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-    // Prepare SQL query to fetch user by username
-    $stmt = $conn->prepare("SELECT id, password, created_at FROM users WHERE username = ?");
-    $stmt->bind_param("s", $username); // Bind the username to the query
-    $stmt->execute(); // Execute the query
-    $stmt->store_result(); // Store result to check if user exists
+    // check username
+    $sql = "SELECT id, password, created_at FROM users WHERE username = '$username'";
+    $result = mysqli_query($conn, $sql);
 
-    if ($stmt->num_rows == 1) { // If user with the given username exists
-        $stmt->bind_result($user_id, $hashed_password, $created_at); // Bind the result variables
-        $stmt->fetch(); // Fetch the data
+    if ($result && mysqli_num_rows($result) === 1) {
+        $row = mysqli_fetch_assoc($result);
+        $user_id = $row['id'];
+        $hashed_password = $row['password'];
+        $created_at = $row['created_at'];
 
-        // Verify the input password against the hashed password
+        // validate password
         if (password_verify($password, $hashed_password)) {
-            session_start(); // Start a new session
-            $_SESSION['username'] = $username; // Store username in session
-            $_SESSION['created_at'] = $created_at; // Store account creation date
-            $_SESSION['user_id'] = $user_id; // Store user ID in session
+            session_start();
+            $_SESSION['username'] = $username;
+            $_SESSION['created_at'] = $created_at;
+            $_SESSION['user_id'] = $user_id;
 
-            // Successful login - redirect to homepage
             echo "<script>alert('Login successful! Redirecting...'); window.location.href='index.php';</script>";
             exit;
         } else {
-            // Password incorrect
             echo "<script>alert('Wrong password.');</script>";
         }
     } else {
-        // Username not found in database
         echo "<script>alert('Username not found.');</script>";
     }
 
-    $stmt->close(); // Close the prepared statement
-    $conn->close(); // Close the database connection
+    mysqli_close($conn);
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

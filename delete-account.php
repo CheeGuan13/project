@@ -1,34 +1,24 @@
 <?php
-session_start(); // Start the session
-include 'config.php'; // Include database configuration
+session_start();
+include 'config.php';
 
-// If user is not logged in, redirect to login page
 if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit();
 }
 
-$username = $_SESSION['username']; // Get the logged-in username from session
+$username = $_SESSION['username'];
 
-// Prepare SQL to delete the user account
-$stmt = $conn->prepare("DELETE FROM users WHERE username = ?");
-$stmt->bind_param("s", $username); // Bind the username parameter
+// 
+$sql = "DELETE FROM users WHERE username = '$username'";
 
-if ($stmt->execute()) {
-    // If deletion is successful, set a success message
+if ($conn->query($sql) === TRUE) {
     $_SESSION['success'] = "Your account has been deleted successfully.";
-
-    // Remove the username from the session
     unset($_SESSION['username']);
-
-    // Redirect to the homepage
     header("Location: index.php");
     exit();
 } else {
-    // If deletion fails, set an error message
     $_SESSION['error'] = "Failed to delete account.";
-
-    // Redirect back to the user profile page
     header("Location: user-profile.php");
     exit();
 }

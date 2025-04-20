@@ -7,19 +7,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $admin_id = $_POST['admin_id']; // Get admin ID from POST
     $admin_password = $_POST['password']; // Get admin password from POST
 
-    // Prepare SQL statement to retrieve admin data from the database
-    $stmt = $conn->prepare("SELECT admin_id, password, name FROM admins WHERE admin_id = ?");
-    $stmt->bind_param("i", $admin_id); // Bind admin ID as integer parameter
-    $stmt->execute();
-    $stmt->store_result(); // Store the result to check if the admin exists
+    // Directly query the database using SQL query
+    $sql = "SELECT admin_id, password, name FROM admins WHERE admin_id = $admin_id";
+    $result = mysqli_query($conn, $sql); // Execute the query
 
-    if ($stmt->num_rows == 1) {
-        $stmt->bind_result($admin_id_result, $hashed_password, $name); // Bind the result columns
-        $stmt->fetch(); // Fetch the data from the result
+    if ($result && mysqli_num_rows($result) == 1) {
+        $row = mysqli_fetch_assoc($result); // Fetch the result
+        $hashed_password = $row['password']; // Get hashed password from result
+        $name = $row['name']; // Get admin name from result
 
+        // Verify the password
         if (password_verify($admin_password, $hashed_password)) {
             // If password is correct, set session variables
-            $_SESSION['admin_id'] = $admin_id_result;
+            $_SESSION['admin_id'] = $admin_id;
             $_SESSION['name'] = $name;
 
             echo "<script>alert('Login successful! Redirecting...'); window.location.href='read.php';</script>";
@@ -33,8 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<script>alert('Admin ID not found.');</script>";
     }
 
-    $stmt->close(); // Close the prepared statement
-    $conn->close(); // Close the database connection
+    mysqli_close($conn); // Close the database connection
 }
 ?>
 
@@ -47,11 +46,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-
-    <!-- Show welcome message if admin is logged in -->
-    <?php if (!empty($welcomeMessage)): ?>
-        <div class="admin-welcome"><?= $welcomeMessage ?></div>
-    <?php endif; ?>
 
     <div class="container mt-4" style="max-width: 400px;">
         <h3 class="text-center mb-4">Admin Login</h3>

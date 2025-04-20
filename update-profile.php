@@ -25,60 +25,60 @@ if (!in_array($field, $allowed_fields)) { // Validate the field
 }
 
 // Get current user data from database
-$stmt = $conn->prepare("SELECT username, email, password FROM users WHERE username = ?");
-$stmt->bind_param("s", $username); // Bind current username
-$stmt->execute(); // Execute query
-$stmt->bind_result($current_username, $current_email, $current_password); // Bind results
-$stmt->fetch(); // Fetch result
-$stmt->close(); // Close statement
+$sql = "SELECT username, email, password FROM users WHERE username = '$username'";
+$result = $conn->query($sql);
+if ($result && $row = $result->fetch_assoc()) {
+    $current_username = $row['username'];
+    $current_email = $row['email'];
+    $current_password = $row['password'];
+} else {
+    $_SESSION['error'] = "User not found.";
+    header("Location: user-profile.php");
+    exit();
+}
 
 $error_message = ''; // Initialize error message
 
 if ($field === 'username') { // If updating username
-    if (strlen($new_value) < 5 || strlen($new_value) > 15) { // Check username length
-        $error_message = "Username must be between 5 and 15 characters."; // Set error
-    } elseif ($new_value === $current_username) { // Check if it's the same as current
-        $error_message = "New username cannot be the same as the current one."; // Set error
+    if (strlen($new_value) < 5 || strlen($new_value) > 15) {
+        $error_message = "Username must be between 5 and 15 characters.";
+    } elseif ($new_value === $current_username) {
+        $error_message = "New username cannot be the same as the current one.";
     }
 } elseif ($field === 'email') { // If updating email
-    if (!filter_var($new_value, FILTER_VALIDATE_EMAIL)) { // Validate email format
-        $error_message = "Invalid email format."; // Set error
-    } elseif ($new_value === $current_email) { // Check if it's the same as current
-        $error_message = "New email cannot be the same as the current one."; // Set error
+    if (!filter_var($new_value, FILTER_VALIDATE_EMAIL)) {
+        $error_message = "Invalid email format.";
+    } elseif ($new_value === $current_email) {
+        $error_message = "New email cannot be the same as the current one.";
     }
 } elseif ($field === 'password') { // If updating password
-    if (strlen($new_value) < 8 || strlen($new_value) > 20) { // Check password length
-        $error_message = "Password must be between 8 and 20 characters."; // Set error
-    } elseif (password_verify($new_value, $current_password)) { // Check if same as current password
-        $error_message = "New password cannot be the same as the current one."; // Set error
+    if (strlen($new_value) < 8 || strlen($new_value) > 20) {
+        $error_message = "Password must be between 8 and 20 characters.";
+    } elseif (password_verify($new_value, $current_password)) {
+        $error_message = "New password cannot be the same as the current one.";
     } else {
         $new_value = password_hash($new_value, PASSWORD_DEFAULT); // Hash the new password
     }
 }
 
-if ($error_message) { // If there's an error
-    $_SESSION['error'] = $error_message; // Set error message
-    header("Location: user-profile.php"); // Redirect back
-    exit(); // Stop execution
+if ($error_message) {
+    $_SESSION['error'] = $error_message;
+    header("Location: user-profile.php");
+    exit();
 }
 
-// Update the field in the database
-$sql = "UPDATE users SET $field = ? WHERE username = ?";
-$stmt = $conn->prepare($sql); // Prepare update statement
-$stmt->bind_param("ss", $new_value, $username); // Bind parameters
-
-if ($stmt->execute()) { // If update successful
-    if ($field === 'username') { // If username was updated
-        $_SESSION['username'] = $new_value; // Update session username
+// Update the field in the database (direct SQL)
+$sql = "UPDATE users SET $field = '$new_value' WHERE username = '$username'";
+if ($conn->query($sql)) {
+    if ($field === 'username') {
+        $_SESSION['username'] = $new_value; // Update session if username changed
     }
-    $_SESSION['success'] = ucfirst($field) . " updated successfully!"; // Set success message
+    $_SESSION['success'] = ucfirst($field) . " updated successfully!";
 } else {
-    $_SESSION['error'] = "Update failed."; // Set failure message
+    $_SESSION['error'] = "Update failed.";
 }
 
-$stmt->close(); // Close statement
-$conn->close(); // Close DB connection
-
-header("Location: user-profile.php"); // Redirect back to profile
+$conn->close(); // Close connection
+header("Location: user-profile.php");
 exit(); // Stop execution
 ?>

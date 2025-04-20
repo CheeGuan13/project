@@ -1,36 +1,33 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") { // Check if the request method is POST
-    include 'config.php'; // Include the database configuration
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    include 'config.php';
 
-    // Get the data from the submitted form
-    $name = $_POST['name']; // Full name
-    $username = $_POST['username']; // Username
-    $email = $_POST['email']; // Email address
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Hash the password securely
+    $name = $_POST['name'];
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-    // Check if the email is already registered in the database
-    $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
-    $stmt->bind_param("s", $email); // Bind the email parameter
-    $stmt->execute(); // Execute the query
-    $stmt->store_result(); // Store the result to check the row count
+    // check if the email is already registered
+    $check_sql = "SELECT id FROM users WHERE email = '$email'";
+    $result = $conn->query($check_sql);
 
-    if ($stmt->num_rows > 0) { // If email already exists
-        echo "<script>alert('Email already registered.');</script>"; // Show error alert
+    if ($result && $result->num_rows > 0) {
+        echo "<script>alert('Email already registered.');</script>";
     } else {
-        // Insert the new user into the users table
-        $stmt = $conn->prepare("INSERT INTO users (name, username, email, password) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $name, $username, $email, $password); // Bind user info
-        if ($stmt->execute()) { // Check if insert is successful
-            echo "<script>alert('Registration successful! Redirecting to login...'); window.location.href='login.php';</script>"; // Success alert and redirect
+        // insert user data
+        $insert_sql = "INSERT INTO users (name, username, email, password) 
+                       VALUES ('$name', '$username', '$email', '$password')";
+        if ($conn->query($insert_sql) === TRUE) {
+            echo "<script>alert('Registration successful! Redirecting to login...'); window.location.href='login.php';</script>";
         } else {
-            echo "<script>alert('Registration failed. Try again.');</script>"; // Failure alert
+            echo "<script>alert('Registration failed. Try again.');</script>";
         }
     }
 
-    $stmt->close(); // Close the prepared statement
-    $conn->close(); // Close the database connection
+    $conn->close();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

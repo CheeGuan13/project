@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['admin_id'] = $admin_id_result;
             $_SESSION['name'] = $name;
 
-            echo "<script>alert('Login successful! Redirecting to homepage...'); window.location.href='index.php';</script>";
+            echo "<script>alert('Login successful! Redirecting...'); window.location.href='read.php';</script>";
             exit; // Exit after redirect
         } else {
             // If password is incorrect, show an alert

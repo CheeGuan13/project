@@ -39,25 +39,27 @@ if (isset($_SESSION['error'])) {
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-dark bg-dark px-3 fixed-top">
-        <div>
-            <a href="index.php">🏠Home</a>
-            <a href="library.php">📚Library</a>
-            <a href="forum.php">🌐Forum</a>
-        </div>
-        <div>
+    <div>
+        <a href="index.php">🏠Home</a>
+        <a href="library.php">📚Library</a>
+        <a href="forum.php">🌐Forum</a>
+    </div>
+    <div>
+        <?php if ($isLoggedIn): ?>
             <?php if ($isAdmin): ?>
-                <a href="admin-login.php" class="text-white text-decoration-none">Admin</a>
-                <a href="logout.php" class="text-white text-decoration-none ms-3">Logout</a>
-            <?php elseif ($isLoggedIn): ?>
+                <a href="logout.php" class="text-white text-decoration-none">Logout</a>
+            <?php else: ?>
                 <a href="user-profile.php">
                     <img class="user-icon" src="images/user-icon.png" alt="User Icon" style="height: 30px;">
                 </a>
                 <a href="logout.php" class="text-white text-decoration-none ms-3">Logout</a>
-            <?php else: ?>
-                <a href="login.php" class="text-white text-decoration-none">Login</a>
             <?php endif; ?>
-        </div>
+        <?php else: ?>
+            <a href="login.php" class="text-white text-decoration-none">Login</a>
+        <?php endif; ?>
+    </div>
     </nav>
+
 
     <div class="hero text-center" style="padding-top: 80px;">
         <div class="hero-overlay">

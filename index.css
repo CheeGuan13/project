@@ -11,6 +11,7 @@ body {
     width: 100%;
 }
 
+
 .navbar a {
     color: white;
     font-weight: bold;
@@ -105,6 +106,14 @@ h3{
     margin-left: 3%;
 }
 
+.user-icon {
+    width: 40px; 
+    height: 40px; 
+    object-fit: cover; 
+    border-radius: 50%; 
+}
+
+/* Responsive tweaks */
 @media (min-width: 0px) {
     nav {
         height: 53px;
@@ -168,4 +177,3 @@ h3{
 .hero-overlay, section {
     position: static; 
 }
-

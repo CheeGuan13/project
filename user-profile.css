@@ -103,17 +103,6 @@ input[type="file"] {
     display: none;
 }
 
-label {
-    background-color: #0c08ea;
-    color: rgb(3, 65, 252);
-    cursor: pointer;
-    border-radius: 50px;
-    margin-top: 10px;
-    display: inline-block;
-    transition: background-color 0.3s;
-    
-}
-
 .profile-img:hover::after {
     content: "Click to Change Image";
     position: absolute;
@@ -140,3 +129,104 @@ label {
         opacity: 1;
     }
 }
+
+#editSection {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.1); 
+    border-radius: 15px;
+    text-align: center;
+    backdrop-filter: blur(5px);
+}
+
+#fieldSelect {
+    padding: 8px 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    background-color: #ffffffdd; 
+    color: #333;
+    margin-left: 10px;
+}
+
+#fieldLabel {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+    color: white;
+    font-size: 16px;
+}
+
+#editForm input[type="text"],
+#editForm input[type="email"],
+#editForm input[type="password"] {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    width: 80%;
+    max-width: 300px;
+}
+
+#editForm button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#editForm button:hover {
+    background-color: #abb7c4;
+}
+form {
+    margin-top: 15px;
+}
+form.d-flex {
+    flex-wrap: wrap; 
+    justify-content: center;
+}
+
+form.d-flex .btn {
+    min-width: 140px;
+    margin-top: 5px;
+}
+.navbar {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+.navbar .nav-button {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.navbar .delete-button {
+    background-color: #dc3545;
+}
+
+.navbar .delete-button:hover {
+    background-color: #c82333;
+}
+
+.navbar .home-button {
+    background-color: #007bff;
+}
+
+.navbar .home-button:hover {
+    background-color: #0056b3;
+}
+
+

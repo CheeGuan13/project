@@ -192,12 +192,12 @@
 <!-- Navbar -->
 <nav class="navbar navbar-dark px-3 d-flex align-items-center justify-content-between">
     <div>
-        <a href="index.html">🏠Home</a>
+        <a href="index.php">🏠Home</a>
         <a href="library.php">📚Library</a>
-        <a href="forum.html">🌐Forum</a>
+        <a href="forum.php">🌐Forum</a>
     </div>
     <div>
-        <a href="login.html">Login</a>
+        <a href="login.php">Login</a>
     </div>
 </nav>
 

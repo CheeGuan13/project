@@ -88,7 +88,6 @@ if (isset($_SESSION['error'])) {
                     <img src="images/<?= $book['image'] ?>" class="card-img-top" alt="<?= $book['title'] ?>">
                     <div class="card-body text-center">
                         <h6 class="card-title"><?= $book['title'] ?></h6>
-                        <a href="bookdetails.php" class="btn btn-sm btn-outline-primary">View Details</a>
                     </div>
                 </div>
             </div>
@@ -110,7 +109,6 @@ if (isset($_SESSION['error'])) {
                     <img src="images/<?= $book['image'] ?>" class="card-img-top" alt="<?= $book['title'] ?>">
                     <div class="card-body text-center">
                         <h6 class="card-title"><?= $book['title'] ?></h6>
-                        <a href="bookdetails.php" class="btn btn-sm btn-outline-primary">View Details</a>
                     </div>
                 </div>
             </div>

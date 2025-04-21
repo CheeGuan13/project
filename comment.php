@@ -178,10 +178,6 @@
             </div>
             <p class="book-title">📒 <?= $user['title'] ?></p>
                 <p><?= $user['content'] ?></p>
-                <div class="post-footer">
-                    <button>👍 Like</button>
-                    <button>🔗 Share</button>
-                </div>
         </div>
 
         <h4 class="mt-4">Comment</h4>
@@ -203,8 +199,11 @@
             <?php
             $result = $conn->query("SELECT * FROM comments where forum_id = $id ORDER BY created_at DESC");
             while ($row = $result->fetch_assoc()):
+                $comment_id = $row['comment_id'];
+                $likes_result = $conn->query("SELECT COUNT(*) AS like_count FROM comment_likes WHERE comment_id = $comment_id");
+                $like_count = $likes_result->fetch_assoc();
             ?>
-            <div class="post-box">
+            <div class="post-box" id="post<?= $row['comment_id'] ?>">
                 <div class="d-flex justify-content-between">
                 <h5><?= $row['username']; ?></h5>
                 <?php if (($isLoggedIn && $_SESSION['username'] === $row['username']) || $isAdmin): ?>
@@ -218,10 +217,6 @@
                 <?php endif; ?>
                 </div>
                 <p><?= $row['content'] ?></p>
-                <div class="post-footer">
-                    <button>👍 Like</button>
-                    <button>🔗 Share</button>
-                </div>
             </div>
             <?php endwhile; ?>
         </div>

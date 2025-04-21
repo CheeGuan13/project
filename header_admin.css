@@ -1,0 +1,130 @@
+/* General body styling */
+body {
+    background-color: #1a1a2e;
+    color: #e0e0e0;
+    font-family: 'Poppins', sans-serif;
+    padding-top: 70px; /* Account for fixed navbar height */
+}
+
+/* Navbar base styles */
+.navbar {
+    background-color: #0f3460 !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+
+
+/* Brand and nav links */
+.navbar-brand,
+.navbar-nav .nav-link {
+    color: #ffffff !important;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .dropdown-menu a:hover {
+    color: #f9c74f !important;
+}
+
+/* Dropdown styling */
+.dropdown-menu {
+    background-color: #16213e;
+    border: none;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.dropdown-menu .dropdown-item {
+    color: #ffffff;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background-color: #0f3460;
+    color: #f9c74f;
+}
+
+/* Log out button aligned to right */
+.navbar .navbar-nav:last-child .nav-link {
+    margin-left: auto;
+}
+
+table.admins {
+	margin: 40px auto;
+	width: 90%;
+	max-width: 900px;
+	border-collapse: collapse;
+	background-color: #0f3460;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+table.admins caption {
+	caption-side: top; /* ✅ Ensures caption is on top */
+	font-size: 1.5rem;
+	color: #f9c74f;
+	margin-bottom: 15px;
+	padding-top: 10px;
+	font-weight: bold;
+	text-align: center;
+}
+
+table.users {
+	margin: 40px auto;
+	width: 90%;
+	max-width: 900px;
+	min-width: 650px;
+	border-collapse: collapse;
+	background-color: #0f3460;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+table.users caption {
+	caption-side: top; /* ✅ Ensures caption is on top */
+	font-size: 1.5rem;
+	color: #f9c74f;
+	margin-bottom: 15px;
+	padding-top: 10px;
+	font-weight: bold;
+	text-align: center;
+}
+
+@media (max-width: 768px) {
+	table.users {
+		font-size: 0.75rem;
+	}
+
+	table.users th,
+	table.users td {
+		padding: 8px 5px;
+		white-space: nowrap;
+	}
+
+	img {
+		width: 24px;
+	}
+}
+
+@media (max-width: 575.98px) {
+	table.users {
+	  font-size: 0.65rem;
+	}
+  
+	table.users th,
+	table.users td {
+	  padding: 6px 4px;
+	  white-space: nowrap;
+	  font-size: 0.7rem;
+	}
+  
+	img {
+	  width: 22px;
+	}
+  }
+
+.table-responsive {
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+  }

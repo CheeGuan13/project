@@ -1,0 +1,15 @@
+button.update {
+	background-color: #0f3460;
+	color: white;
+	border: none;
+	border-radius: 20px;
+	padding: 8px 20px;
+	margin-top: 10px;
+	transition: 0.3s ease-in-out;
+}
+
+button.update:hover {
+	background-color: #1a1a2e;
+	color: #f9c74f;
+	cursor: pointer;
+}

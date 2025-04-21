@@ -1,8 +1,8 @@
 <?php
     $host = "localhost";
     $user = "root"; // Default user in AMPPS
-    $password = "mysql"; // Default password in AMPPS
-    $database = "library"; // Database name
+    $password = ""; // Default password in AMPPS
+    $database = "crud_app"; // Database name
     // Create connection
     $conn = new mysqli($host, $user, $password, $database);
     // Check connection

@@ -207,7 +207,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $isLoggedIn) {
                 <a href="logout.php" class="text-white text-decoration-none ms-3">Logout</a>
             <?php elseif ($isLoggedIn): ?>
                 <a href="user-profile.php">
-                    <img class="user-icon" src="images/user-icon.png" alt="User Icon" style="height: 30px;">
+                    <img class="user-icon" src="images/user-icon.png" alt="User Icon" style="height: 40px;">
                 </a>
                 <a href="logout.php" class="text-white text-decoration-none ms-3">Logout</a>
             <?php else: ?>

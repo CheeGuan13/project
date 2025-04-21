@@ -2,14 +2,12 @@
 session_start();
 require 'config.php';
 
-if (!isset($_SESSION['username' || 'name'])) {
+if (!isset($_SESSION['username'])) {
     die("You must be logged in to like.");
 }
 
-$admin = $_SESSION['name'];
 $username = $_SESSION['username'];
 $forum_id = $_GET['forum_id'];
-
 
 $check_sql = "SELECT * FROM forum_likes WHERE username = '$username' AND forum_id = $forum_id";
 $result = $conn->query($check_sql);

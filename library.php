@@ -1,4 +1,7 @@
 <?php
+    session_start();
+    $isLoggedIn = isset($_SESSION['username']);
+
     require 'config.php';
 
     $genre = isset($_GET['genre']) ? mysqli_real_escape_string($conn, $_GET['genre']) : '';
@@ -197,7 +200,14 @@
         <a href="forum.php">🌐Forum</a>
     </div>
     <div>
-        <a href="login.php">Login</a>
+        <?php if ($isLoggedIn): ?>
+            <a href="user-profile.php">
+                    <img class="user-icon" src="images/user-icon.png" alt="User Icon" style="height: 40px;">
+                </a>
+                <a href="logout.php" class="text-white text-decoration-none ms-3">Logout</a>
+            <?php else: ?>
+                <a href="login.php" class="text-white text-decoration-none">Login</a>
+            <?php endif; ?>
     </div>
 </nav>
 

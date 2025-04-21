@@ -50,7 +50,8 @@ if (isset($_SESSION['error'])) {
                 <a href="logout.php" class="text-white text-decoration-none">Logout</a>
             <?php else: ?>
                 <a href="user-profile.php">
-                    <img class="user-icon" src="images/user-icon.png" alt="User Icon" style="height: 30px;">
+                    <img class="user-icon" src="images/user-icon.png" alt="User Icon">
+
                 </a>
                 <a href="logout.php" class="text-white text-decoration-none ms-3">Logout</a>
             <?php endif; ?>

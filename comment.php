@@ -199,9 +199,6 @@
             <?php
             $result = $conn->query("SELECT * FROM comments where forum_id = $id ORDER BY created_at DESC");
             while ($row = $result->fetch_assoc()):
-                $comment_id = $row['comment_id'];
-                $likes_result = $conn->query("SELECT COUNT(*) AS like_count FROM comment_likes WHERE comment_id = $comment_id");
-                $like_count = $likes_result->fetch_assoc();
             ?>
             <div class="post-box" id="post<?= $row['comment_id'] ?>">
                 <div class="d-flex justify-content-between">
@@ -216,7 +213,7 @@
                     </div>
                 <?php endif; ?>
                 </div>
-                <p><?= $row['content'] ?></p>
+                <p><?= $row['content'] ?></p>   
             </div>
             <?php endwhile; ?>
         </div>

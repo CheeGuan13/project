@@ -1,0 +1,25 @@
+.container {
+    width: 90%;
+    max-width: 900px;
+    margin-bottom: 5%;
+}
+
+.table th {
+    background-color: #007bff;
+    text-align: left;
+    padding: 8px;
+    color: white;
+}
+
+.table td {
+    background-color:  lightgray;
+}
+
+table td a{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.synopsis {
+    width: 400px;
+}

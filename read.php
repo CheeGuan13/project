@@ -78,7 +78,15 @@
                         <li><a class="dropdown-item" href="add_admin.php">Add Admin</a></li>
                     </ul>
                 </li>
+                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Forum</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="forum.php">Forum</a></li>
+                    </ul>
+                </li>
             </ul>
+        
 
             <ul class="navbar-nav">
                 <li class="nav-item">

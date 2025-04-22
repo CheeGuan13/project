@@ -9,7 +9,7 @@ if (!isset($_SESSION['username'])) {
 
 $username = $_SESSION['username'];
 
-// 
+// delete user from the database
 $sql = "DELETE FROM users WHERE username = '$username'";
 
 if ($conn->query($sql) === TRUE) {

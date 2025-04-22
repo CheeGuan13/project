@@ -150,7 +150,6 @@
         </div>
         <div>
             <?php if ($isAdmin): ?>
-                <a href="admin-login.php" class="text-white text-decoration-none">Admin</a>
                 <a href="logout.php" class="text-white text-decoration-none ms-3">Logout</a>
             <?php elseif ($isLoggedIn): ?>
                 <a href="user-profile.php">

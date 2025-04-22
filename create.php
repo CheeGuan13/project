@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Check if any genre is selected
     if (empty($_POST['genre'])) {
-        $errors['genre'] = "Please select at least one genre.";
+        $errors['genre'] = "Please select the book genre.";
     }
     // Check if title is entered
     if (empty($_POST['title'])) {
@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($errors)) {
         $title = $_POST['title'];
         $author = $_POST['author'];
-        $genre = implode(", ", $_POST['genre']);
+        $genre = $_POST['genre'];
         $published_date = $_POST['published_date'];
         $synopsis = $_POST['synopsis'];
         $image = $_FILES['image']['name'];

@@ -119,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3 fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="list_book.php">🏠Home</a>
+        <a class="navbar-brand" href="read.php">🏠Home</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown">
             <span class="navbar-toggler-icon"></span>
         </button>

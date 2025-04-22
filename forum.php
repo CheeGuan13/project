@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['search']) && !empty($_GE
     $searchQuery = " WHERE username LIKE '%$searchTerm%' OR title LIKE '%$searchTerm%' OR content LIKE '%$searchTerm%'";
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && $isLoggedIn) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && $isLoggedIn) {  
     $title = trim($_POST['title']);
     $content = trim($_POST['content']);
     $username = $_SESSION['username'];

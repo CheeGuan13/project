@@ -4,8 +4,7 @@ $isLoggedIn = isset($_SESSION['username']);
 $isAdmin = isset($_SESSION['admin_id']);
 
 require 'config.php'; // Include database connection file
-$username = $_GET['username']; // Get the user ID from the URL
-$user = $conn->query("SELECT * FROM forum WHERE username = '$username'")->fetch_assoc(); // Fetch user data
+$forum_id = $_GET['forum_id']; // Get the user ID from the URL
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get form data
@@ -13,7 +12,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $content = trim($_POST['content']);
 
     // Update data in database
-    $sql = "UPDATE forum SET title='$title', content='$content' WHERE username='$username'";
+    $sql = "UPDATE forum SET title='$title', content='$content' WHERE forum_id='$forum_id'";
    
     if (empty($title) || empty($content)) {
         $errorMessage = "Title and content cannot be empty.";

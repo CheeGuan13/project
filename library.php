@@ -8,10 +8,13 @@
     $search = isset($_GET['search']) ? mysqli_real_escape_string($conn, $_GET['search']) : '';
 
     $query = "SELECT * FROM BOOK_DETAILS WHERE 1=1";
+
     if (!empty($search)) {
         $query .= " AND Title LIKE '%$search%'";
-    } elseif (!empty($genre)) {
-        $query .= " AND Genre = '$genre'";
+    }
+
+    if (!empty($genre)) {
+        $query .= " AND Lower (Genre) LIKE Lower('%$genre%')";
     }
 
     $result = mysqli_query($conn, $query);

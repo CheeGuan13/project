@@ -90,7 +90,7 @@
 
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="admin-login.php">Log out</a>
+                    <a class="nav-link" href="index.php">Log out</a>
                 </li>
             </ul>
         </div>
